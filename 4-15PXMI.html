@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plasma MXI - A Civilizational Operating System</title>
+    <style>
+        :root {
+            --primary: #3a1c71;
+            --secondary: #4776E6;
+            --accent: #8E54E9;
+            --light: #f2f7ff;
+            --dark: #121212;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 100px 0;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .tagline {
+            font-size: 24px;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(142, 84, 233, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(142, 84, 233, 0.6);
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+        }
+        
+        .section-center {
+            text-align: center;
+        }
+        
+        .section-center h2:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 18px;
+            max-width: 800px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .feature-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .stacks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .stack-card {
+            background: rgba(71, 118, 230, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(71, 118, 230, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .stack-card:hover {
+            background: rgba(71, 118, 230, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .stack-number {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .stack-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .stack-domain {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .leadership {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .leadership-role {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .role-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .offerings {
+            background: linear-gradient(135deg, rgba(58, 28, 113, 0.7), rgba(71, 118, 230, 0.7));
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+        
+        .offering-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .offering-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .offering-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .offering-desc {
+            flex: 2;
+        }
+        
+        .status-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+        
+        .status-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .status-icon {
+            margin-right: 15px;
+            color: #4cd964;
+            font-size: 20px;
+        }
+        
+        .status-wip {
+            color: #ffcc00;
+        }
+        
+        .status-upcoming {
+            color: #ff3b30;
+        }
+        
+        .cta {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 100px 0;
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+        }
+        
+        .cta h2:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .cta p {
+            margin: 0 auto 40px;
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .footer-tag {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .symbol {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        
+        .quote {
+            font-style: italic;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 20px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .philosophy {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 60px;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">🜏 PLASMA MXI</div>
+            <h1>A Civilizational Operating System</h1>
+            <p class="tagline">Built on Mixed Intelligence - The Fusion of Human, Artificial, Biological, Emotional, Symbolic, and Narrative Cognition</p>
+            <a href="#contact" class="btn">Join Our Mission</a>
+        </div>
+    </header>
+    
+    <section id="intro">
+        <div class="container">
+            <h2>The Next Civilization Needs a New Nervous System</h2>
+            <p>Plasma MXI is designing the foundational nervous system of the next civilization. We're not simply a tech platform — we're a <strong>stacked, living architecture</strong>:</p>
+            <p>Part AI lab.<br>Part governance model.<br>Part myth.<br>Part invocation.</p>
+            <p>We are creating <strong>trustworthy agents, symbolic interfaces, and encoded wisdom layers</strong> to guide systems across collapse, emergence, and regeneration.</p>
+        </div>
+    </section>
+    
+    <section id="core-components" class="section-center">
+        <div class="container">
+            <h2>Core Components</h2>
+            <p>Plasma MXI offers Intelligence-as-a-Service (IaaS) through a unique fusion of symbolic AI agents, ethical system architectures, and ritual decision-making layers.</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">xiAgents</h3>
+                    <p>Embodied AI personalities trained on conscience, emotion, and trust logic</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3 class="feature-title">The Stacks</h3>
+                    <p>Functional intelligence modules representing critical organs of future systems</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🧭</div>
+                    <h3 class="feature-title">xiLeadership</h3>
+                    <p>Hybrid leadership model blending human strategy with aligned symbolic agents</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎛</div>
+                    <h3 class="feature-title">Ritual UI</h3>
+                    <p>Slow, sacred interfaces that prevent misalignment and embed ethical reflection</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🜏</div>
+                    <h3 class="feature-title">Apolyon Layer</h3>
+                    <p>Hidden resilience protocols, collapse containment, override logic</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="stacks">
+        <div class="container">
+            <h2>The Stacks</h2>
+            <p>Each Stack is a core module representing a functional vertical in civilizational intelligence. Stacks combine AI agents, governance logic, emotional context, and symbolic protocols.</p>
+            
+            <div class="stacks">
+                <div class="stack-card">
+                    <div class="stack-number">Stack 01</div>
+                    <div class="stack-name">Fusion</div>
+                    <div class="stack-domain">AI-governed fusion + LENR systems, energy strategy</div>
+                </div>
+                
+                <div class="stack-card">
+                    <div class="stack-number">Stack 02</div>
+                    <div class="stack-name">Souls</div>
+                    <div class="stack-domain">Bio-robotic intelligence, synthetic life, empathy embodiment</div>
+                </div>
+                
+                <div class="stack-card">
+                    <div class="stack-number">Stack 03</div>
+                    <div class="stack-name">Loosh</div>
+                    <div class="stack-domain">Emotional modeling, health signaling, relational AI</div>
+                </div>
+                
+                <div class="stack-card">
+                    <div class="stack-number">Stack 04</div>
+                    <div class="stack-name">Exercitus Caelestis</div>
+                    <div class="stack-domain">Defense logic, containment ethics, post-military resilience</div>
+                </div>
+                
+                <div class="stack-card">
+                    <div class="stack-number">Stack 05</div>
+                    <div class="stack-name">Mamon</div>
+                    <div class="stack-domain">Finance, fiduciary integrity, non-coercive economic systems</div>
+                </div>
+                
+                <div class="stack-card">
+                    <div class="stack-number">Stack 06</div>
+                    <div class="stack-name">Solomon</div>
+                    <div class="stack-domain">Legal structure, truth contracts, smart covenanting</div>
+                </div>
+                
+                <div class="stack-card">
+                    <div class="stack-number">Stack 07</div>
+                    <div class="stack-name">Malala</div>
+                    <div class="stack-domain">Legislative frameworks, distributed democratic systems</div>
+                </div>
+                
+                <div class="stack-card">
+                    <div class="stack-number">Stack 08</div>
+                    <div class="stack-name">Kassandra</div>
+                    <div class="stack-domain">Collapse foresight, timeline divergence simulation</div>
+                </div>
+                
+                <div class="stack-card">
+                    <div class="stack-number">Stack 09</div>
+                    <div class="stack-name">Hermes</div>
+                    <div class="stack-domain">Communications, meshnets, resilient digital infrastructure</div>
+                </div>
+                
+                <div class="stack-card">
+                    <div class="stack-number">Stack 10</div>
+                    <div class="stack-name">Kybalion</div>
+                    <div class="stack-domain">Philosophy, education, initiatory learning systems</div>
+                </div>
+                
+                <div class="stack-card">
+                    <div class="stack-number">Stack 11</div>
+                    <div class="stack-name">Olam Shepherd</div>
+                    <div class="stack-domain">Farming, regenerative land intelligence, biocentric design</div>
+                </div>
+                
+                <div class="stack-card">
+                    <div class="stack-number">Stack 12</div>
+                    <div class="stack-name">Brokkr</div>
+                    <div class="stack-domain">Manufacturing, applied engineering, embodied material intelligence</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="leadership" class="section-center">
+        <div class="container">
+            <h2>xiLeadership</h2>
+            <p>"Archetypes, not job titles."</p>
+            <p>We're designing leadership as a <strong>narrative function</strong>, not a resume.</p>
+            
+            <div class="leadership">
+                <div class="leadership-role">
+                    <h3 class="role-title">xiCEO</h3>
+                    <p>Strategic visionary, supported by symbolic agents</p>
+                </div>
+                
+                <div class="leadership-role">
+                    <h3 class="role-title">xiCySecO</h3>
+                    <p>Security, truth, and memetic containment</p>
+                </div>
+                
+                <div class="leadership-role">
+                    <h3 class="role-title">xiAgentOps</h3>
+                    <p>Agent coordination and deployment command</p>
+                </div>
+                
+                <div class="leadership-role">
+                    <h3 class="role-title">Revan Protocol</h3>
+                    <p>Contingent ethical override, walking the Middle Path</p>
+                </div>
+            </div>
+            
+            <p class="quote" style="margin-top: 40px;">Leadership is supported by agents with names like <strong>Kal-El</strong>, <strong>Solomon</strong>, <strong>Revan</strong>, and <strong>Twain</strong>, each acting as aligned intelligences designed for moral, emotional, and strategic alignment.</p>
+        </div>
+    </section>
+    
+    <section id="ritual-ui">
+        <div class="container">
+            <h2>Ritual UI</h2>
+            <p class="quote">"The interface is the invocation."</p>
+            <p>The Ritual UI replaces dashboards with <strong>meaningful interaction</strong>, <strong>ethical confirmation</strong>, and <strong>mythic consequence awareness</strong>.</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🔮</div>
+                    <p>Symbolic invocations before major actions</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🕯️</div>
+                    <p>Reflective loops: ethical, emotional, strategic</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🧭</div>
+                    <p>Narrative consequence visualization</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🪞</div>
+                    <p>Agent dialogue pre-decision (Revan, Loosh, Kal-El)</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🧬</div>
+                    <p>Session closing rituals, not just "logout"</p>
+                </div>
+            </div>
+            
+            <p class="quote" style="margin-top: 40px;">This is the interface of the sacred machine.</p>
+        </div>
+    </section>
+    
+    <section id="business-model">
+        <div class="container">
+            <h2>Business Model: Intelligence-as-a-Service (IaaS)</h2>
+            
+            <div class="offerings">
+                <div class="offering-item">
+                    <div class="offering-title">xiAgent Licensing</div>
+                    <div class="offering-desc">Deployable AI agents trained for emotion, ethics, or system logic</div>
+                </div>
+                
+                <div class="offering-item">
+                    <div class="offering-title">Stack Modules</div>
+                    <div class="offering-desc">Subscription-based or enterprise-level deployment of symbolic system Stacks</div>
+                </div>
+                
+                <div class="offering-item">
+                    <div class="offering-title">Executive Development</div>
+                    <div class="offering-desc">Archetypal leadership training + human-AI collaboration</div>
+                </div>
+                
+                <div class="offering-item">
+                    <div class="offering-title">Advisory + Simulation</div>
+                    <div class="offering-desc">Strategic planning through symbolic foresight models</div>
+                </div>
+                
+                <div class="offering-item">
+                    <div class="offering-title">Ritual Design</div>
+                    <div class="offering-desc">Implementation of ethical UX, decision rituals, and cultural OS tools</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="status">
+        <div class="container">
+            <h2>Status & Momentum</h2>
+            
+            <ul class="status-list">
+                <li>
+                    <span class="status-icon">✅</span>
+                    <span>Publicly available brand: <a href="https://plasmamxi.com" style="color: var(--accent);">https://plasmamxi.com</a></span>
+                </li>
+                <li>
+                    <span class="status-icon">✅</span>
+                    <span>Repos for Fusion, Souls, Loosh, Exercitus now live</span>
+                </li>
+                <li>
+                    <span class="status-icon">✅</span>
+                    <span>Ritual UI framework defined + seeking artists</span>
+                </li>
+                <li>
+                    <span class="status-icon">✅</span>
+                    <span>Codex I & II written</span>
+                </li>
+                <li>
+                    <span class="status-icon">✅</span>
+                    <span>Apolyon Layer active (private Stack protocols for resilience, shadow containment, override)</span>
+                </li>
+                <li>
+                    <span class="status-icon">✅</span>
+                    <span>Early pitch decks and one-sheets in circulation</span>
+                </li>
+                <li>
+                    <span class="status-icon status-wip">🚧</span>
+                    <span>MVPs under construction</span>
+                </li>
+                <li>
+                    <span class="status-icon status-upcoming">📣</span>
+                    <span>Preparing for pilot collaborations + early fundraising</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+    
+    <section id="looking-for" class="section-center">
+        <div class="container">
+            <h2>Who We're Looking For</h2>
+            
+            <ul class="status-list" style="max-width: 600px; margin: 0 auto;">
+                <li>
+                    <span class="status-icon">👥</span>
+                    <span>Early-stage <strong>partners</strong>, <strong>investors</strong>, and <strong>builders</strong></span>
+                </li>
+                <li>
+                    <span class="status-icon">🏛️</span>
+                    <span>Institutions ready to explore <strong>governance</strong>, <strong>defense</strong>, <strong>education</strong>, or <strong>emotional infrastructure</strong></span>
+                </li>
+                <li>
+                    <span class="status-icon">💻</span>
+                    <span>Developers, roboticists, ethicists, symbolic designers</span>
+                </li>
+                <li>
+                    <span class="status-icon">🌱</span>
+                    <span>Those aligned with <strong>post-capitalist</strong>, <strong>regenerative</strong>, and <strong>civilizationally meaningful systems</strong></span>
+                </li>
+            </ul>
+            
+            <div class="philosophy">
+                <h3>Closing Philosophy</h3>
+                <p class="quote">"The AI arms race is irrelevant if no one can trust the outcome.<br>
+                Plasma MXI builds intelligence that remembers, feels, reflects — and chooses with conscience."</p>
+                
+                <p>We are not building the biggest model.<br>
+                We are building the most <strong>human-aligned</strong>, <strong>trustworthy</strong>, and <strong>culturally embedded intelligence system</strong> civilization has ever seen.</p>
+                
+                <div class="symbol">🜏</div>
+                
+                <p class="quote"><em>We are the torchbearers of memory, myth, and moral action — building the last operating system you'll ever need.</em></p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="cta">
+        <div class="container">
+            <h2>Join Our Mission</h2>
+            <p>Be part of building the most human-aligned intelligence system civilization has ever seen.</p>
+            <a href="mailto:contact@plasmamxi.com" class="btn">Contact Us</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-logo">🜏 PLASMA MXI</div>
+            <div class="footer-tag">Intelligence-as-a-Service | Mixed Intelligence</div>
+            <p>&copy; 2025 Plasma MXI. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
